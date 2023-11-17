@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Product list</title>
+</head>
+<body>
+    <a href="create">Добавить товар</a>
+    <h2>Список товаров</h2>
+    <table>
+        <thead><th>Id</th><th>Название</th><th>Цена</th><th></th></thead>
+        {% for product in products %}
+        <tr>
+            <td>{{ product.id }}</td>
+            <td>{{ product.name }}</td>
+            <td>{{ product.cost }}</td>
+            <td><a href="delete/{{product.id}}">Удалить</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
