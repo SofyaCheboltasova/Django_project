@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Universities Table</title>
+</head>
+<body>
+	<form method="POST" action="{% url 'create_university' %}">
+			{% csrf_token %}
+			<p>
+					<label>Введите ID университета</label><br>
+					<input type="number" name="id" />
+			</p>
+			<p>
+					<label>Введите полное название</label><br>
+					<input type="text" name="fullName" />
+			</p>
+			<p>
+				<label>Введите сокращенное название</label><br>
+				<input type="text" name="shortName" />
+			</p>
+			<p>
+				<label>Введите год основания</label><br>
+				<input type="date" name="year" />
+			</p>
+			<input type="submit" value="Сохранить" >
+		</form>
+
+		{% if error_message %}
+    	<p style="color: red;">{{ error_message }}</p>	
+		{% endif %}
+
+		<h1>Список университетов</h1>
+    <table style="width: 100%;">
+        <thead>
+            <tr style="text-align: left;">
+                <th>ID университета</th>
+                <th>Полное название</th>
+                <th>Сокращенное название</th>
+                <th>Год основания</th>
+                <th>Действия</th>
+            </tr>
+        </thead>
+				<tbody>
+					{% for university in universities %}
+							<tr>
+									<td>{{ university.id }}</td>
+									<td>{{ university.fullName }}</td>
+									<td>{{ university.shortName }}</td>
+									<td>{{ university.year }}</td>
+									<td><a href="{% url 'edit_university' university.id %}">Изменить</a> | <a href="{% url 'delete_university' university.id %}">Удалить</a></td>
+							</tr>
+					{% endfor %}
+			</tbody>
+
+    </table>
+</body>
+</html>
