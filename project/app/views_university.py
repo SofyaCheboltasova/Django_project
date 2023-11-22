@@ -29,7 +29,6 @@ def create_university(request):
     universities = Universities.objects.all().order_by('id')
     return render(request, 'universities.html', {'universities': universities, 'error_message': error_message})
 
-
 def edit_university(request, id):
     university = Universities.objects.get(id=id)
     error_message = ""
@@ -49,8 +48,7 @@ def edit_university(request, id):
         return render(request, 'universities.html', {'universities': universities})
     else:
       return render(request, "edit_university.html", {'university': university})
-     
-		 
+     		 
 def delete_university(request, id):
     university = Universities.objects.get(id=id)
     university.delete()

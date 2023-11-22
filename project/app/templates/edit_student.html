@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+</head>
+<body>
+	<form method="POST">
+		{% csrf_token %}
+		<p>
+				<label>Введите ID студента</label><br>
+				<input type="number" name="id" value="{{student.id}}"/>
+		</p>
+		<p>
+				<label>Введите ФИО</label><br>
+				<input type="text" name="fullName" value="{{student.fullName}}"/>
+		</p>
+		<p>
+			<label>Введите дату рождения</label><br>
+			<input type="date" name="birthDate" value="{{student.birthDate}}"/>
+		</p>
+		<p>
+			<label>Выберите университет</label><br>
+			<select name="university" value="{{ student.university }}">
+				{% for university in universities %}
+						<option value="{{ university.id }}">{{ university.fullName }}</option>
+				{% endfor %}
+		</select>
+		</p>
+		<p>
+			<label>Введите дату поступления</label><br>
+			<input type="date" name="admissionYear" value="{{student.admissionYear}}"/>
+		</p>
+		<input type="submit" value="Сохранить" >
+	</form>
+
+	{% if error_message %}
+		<p style="color: red;">{{ error_message }}</p>	
+	{% endif %}
+</body>	

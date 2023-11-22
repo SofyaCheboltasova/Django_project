@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Студенты</title>
+</head>
+<body>
+	<form method="POST" action="{% url 'create_student' %}">
+			{% csrf_token %}
+			<p>
+					<label>Введите ID студента</label><br>
+					<input type="number" name="id" />
+			</p>
+			<p>
+					<label>Введите ФИО</label><br>
+					<input type="text" name="fullName" />
+			</p>
+			<p>
+				<label>Введите дату рождения</label><br>
+				<input type="date" name="birthDate" />
+			</p>
+			<p>
+				<label>Выберите университет</label><br>
+				<select name="university">
+					{% for university in universities %}
+							<option value="{{ university.id }}">{{ university.fullName }}</option>
+					{% endfor %}
+			</select>
+			</p>
+			<p>
+				<label>Введите дату поступления</label><br>
+				<input type="date" name="admissionYear" />
+			</p>
+			<input type="submit" value="Сохранить" >
+		</form>
+
+		{% if error_message %}
+    	<p style="color: red;">{{ error_message }}</p>	
+		{% endif %}
+
+		<h1>Список университетов</h1>
+    <table style="width: 100%;">
+        <thead>
+            <tr style="text-align: left;">
+                <th>ID студента</th>
+                <th>ФИО</th>
+                <th>Дата рождения</th>
+                <th>Университет</th>
+								<th>Дата поступления</th>
+                <th>Действия</th>
+            </tr>
+        </thead>
+				<tbody>
+					{% for student in students %}
+							<tr>
+									<td>{{ student.id }}</td>
+									<td>{{ student.fullName }}</td>
+									<td>{{ student.birthDate }}</td>
+									<td>{{ student.university }}</td>
+									<td>{{ student.admissionYear }}</td>
+									<td><a href="{% url 'edit_student' student.id %}">Изменить</a> | <a href="{% url 'delete_student' student.id %}">Удалить</a></td>
+							</tr>
+					{% endfor %}
+			</tbody>
+    </table>
+</body>
+</html>
